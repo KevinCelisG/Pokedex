@@ -18,12 +18,15 @@ class PokemonViewModel @Inject constructor(
 ) :
     ViewModel() {
 
+    private val listPokemonsGeneral = ArrayList<Pokemon>()
     val listPokemonsResponse = MutableLiveData<PokemonResponse>()
     val listPokemons = MutableLiveData<List<Pokemon>>()
+    val isLoading = MutableLiveData<Boolean>()
 
     fun getPokemonsResponse(query: String) {
         viewModelScope.launch {
             val response = getPokemonsResponseUseCase.invoke(query)
+            isLoading.postValue(true)
 
             if (response != null) {
                 listPokemonsResponse.postValue(response!!)
@@ -37,7 +40,9 @@ class PokemonViewModel @Inject constructor(
             val pokemons = getPokemonsUseCase.invoke(pokemonResponse?.results)
 
             if (pokemons != null) {
-                listPokemons.postValue(pokemons!!)
+                listPokemonsGeneral.addAll(pokemons)
+                listPokemons.postValue(listPokemonsGeneral)
+                isLoading.postValue(false)
             }
         }
     }

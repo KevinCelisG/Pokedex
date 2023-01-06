@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -70,6 +71,19 @@ dependencies {
     // Dagger hilt
     implementation 'com.google.dagger:hilt-android:2.42'
     kapt 'com.google.dagger:hilt-compiler:2.42'
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
+
+    // Analytics
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // Firestore
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    // Room
+    implementation "androidx.room:room-ktx:2.4.3"
+    kapt "androidx.room:room-compiler:2.4.3"
 }
 
 kapt {

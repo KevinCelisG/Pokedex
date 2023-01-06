@@ -19,15 +19,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_pokemon"
+    <RelativeLayout
+        android:id="@+id/relative_layout_list_pokemon"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="550dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_title">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view_list"
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            android:layout_margin="10dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_pokemon"
+                android:layout_width="match_parent"
+                android:layout_height="550dp" />
+
+        </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bar_background"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/button_start"
@@ -37,6 +64,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycler_view_pokemon" />
+        app:layout_constraintTop_toBottomOf="@id/relative_layout_list_pokemon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

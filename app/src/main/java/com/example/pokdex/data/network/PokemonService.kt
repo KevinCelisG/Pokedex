@@ -3,17 +3,23 @@ package com.example.pokdex.data.network
 import com.example.pokdex.core.Constants
 import com.example.pokdex.data.model.Pokemon
 import com.example.pokdex.data.model.PokemonResponse
+import com.example.pokdex.di.FirebaseModule
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import javax.inject.Inject
 
-class PokemonService @Inject constructor(private val pokemonApiClient: PokemonApiClient) {
+class PokemonService @Inject constructor(
+    private val pokemonApiClient: PokemonApiClient,
+    private val pokemonFirebaseClient: PokemonFirebaseClient
+) {
 
     suspend fun getPokemonsResponse(query: String): PokemonResponse? {
         return withContext(Dispatchers.IO) {
             val response = pokemonApiClient.getPokemonsResponse(query)
 
+            pokemonFirebaseClient.postResponse(response)
             // Print the response
             println("RESPONSE")
             println(response)
