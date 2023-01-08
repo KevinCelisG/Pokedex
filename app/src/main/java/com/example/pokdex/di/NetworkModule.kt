@@ -18,16 +18,13 @@ object NetworkModule {
     // Provide just one instance of retrofit
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder().baseUrl(Constants.ROOT_PATH)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+    fun provideRetrofit(): Retrofit = Retrofit.Builder().baseUrl(Constants.ROOT_PATH)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
     @Singleton
     @Provides
-    fun providePokemonApiClient(retrofit: Retrofit): PokemonApiClient {
-        return retrofit.create(PokemonApiClient::class.java)
-    }
+    fun providePokemonApiClient(retrofit: Retrofit): PokemonApiClient =
+        retrofit.create(PokemonApiClient::class.java)
 
 }

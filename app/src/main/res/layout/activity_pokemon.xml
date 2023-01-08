@@ -19,23 +19,26 @@
             android:layout_height="250dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent">}
+
+            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                android:id="@+id/carousel_image_pokemon"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@color/gray_light"
+                app:carouselType="SHOWCASE"
+                app:showBottomShadow="false"
+                app:showTopShadow="false" />
 
             <ImageButton
                 android:id="@+id/button_image_go_back"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
-                android:background="@color/white"
+                android:background="@color/gray_light"
                 android:src="@drawable/icon_go_back" />
-
-            <ImageView
-                android:id="@+id/image_view_image_pokemon"
-                android:layout_width="240dp"
-                android:layout_height="240dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_launcher_background" />
 
             <TextView
                 android:id="@+id/text_view_id"
@@ -59,7 +62,7 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:text="@string/app_name"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +75,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/app_name"
-        android:textColor="@color/gray_dark"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +88,7 @@
         android:layout_margin="20dp"
         android:layout_marginTop="10dp"
         android:text="@string/app_name"
-        android:textColor="@color/gray_dark"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_base_experience" />
@@ -97,7 +100,7 @@
         android:layout_margin="20dp"
         android:layout_marginTop="10dp"
         android:text="@string/app_name"
-        android:textColor="@color/gray_dark"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_base_experience" />

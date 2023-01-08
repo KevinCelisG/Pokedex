@@ -15,13 +15,10 @@ object FirebaseModule {
 
     @Singleton
     @Provides
-    fun provideFirebase(): FirebaseFirestore {
-        return FirebaseFirestore.getInstance()
-    }
+    fun provideFirebase(): FirebaseFirestore = FirebaseFirestore.getInstance()
 
     @Singleton
     @Provides
-    fun providePokemonService(firestore: FirebaseFirestore): PokemonFirebaseClient {
-        return PokemonFirebaseClient(firestore.collection("responses").document())
-    }
+    fun providePokemonService(firestore: FirebaseFirestore): PokemonFirebaseClient =
+        PokemonFirebaseClient(firestore.collection("responses").document())
 }

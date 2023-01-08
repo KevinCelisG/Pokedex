@@ -1,28 +1,33 @@
 package com.example.pokdex.data.network
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
+import com.example.pokdex.core.Constants
+import com.example.pokdex.core.Utils
 import com.example.pokdex.data.model.PokemonResponse
 import com.google.firebase.firestore.DocumentReference
 import retrofit2.Response
-import java.time.Instant
+import java.util.*
 import javax.inject.Inject
 
 class PokemonFirebaseClient @Inject constructor(private val documentReference: DocumentReference) {
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    /**
+     * Post the data of response in Firestore with Firebase
+     * @param response = Response<PokemonResponse> with de data response of Retrofit
+     */
+    @SuppressLint("NewApi")
     fun postResponse(response: Response<PokemonResponse>) {
-        documentReference.collection("data").add(
+        documentReference.collection(Constants.DATA_RESPONSES_KEY).add(
             hashMapOf(
                 "code" to response.code().toString(),
                 "body" to response.body().toString(),
-                "date" to Instant.now(),
+                "date" to Calendar.getInstance().time.toString(),
                 "isSuccessful" to response.isSuccessful,
                 "message" to response.message(),
                 "errorBody" to response.errorBody(),
-                "request" to "GET"
+                "method" to "GET"
             )
         )
             .addOnSuccessListener { documentReference ->
@@ -33,4 +38,20 @@ class PokemonFirebaseClient @Inject constructor(private val documentReference: D
             }
     }
 
+    /**
+     * Get the data of all responses about a document with collection in Firestore of Firebase and call to Utils to save the data
+     */
+    fun saveResponses() {
+        var responses = ""
+        documentReference.collection(Constants.DATA_RESPONSES_KEY).get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    responses += "Id: ${document.id} => Data: ${document.data} \n"
+                }
+                Utils.save(responses, documentReference.id)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
+    }
 }

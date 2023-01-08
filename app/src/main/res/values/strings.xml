@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Pokédex</string>
     <string name="title_app">Pokemons</string>
+    <string name="message_save_data">Save</string>
+    <string name="footer_text">©2023 Satoshi Tajiri</string>
+    <string name="experience_text">Experience: </string>
+    <string name="weight_text">Weight: </string>
+    <string name="height_text">Height: </string>
+    <string name="pillow_text">#</string>
+    <string name="meters_text"> m</string>
+    <string name="kilograms_text"> k</string>
+    <string name="message_language">Language</string>
+    <string name="successful_save">Save successful</string>
+    <string name="fail_save">Fail to save</string>
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pokédex</string>
+    <string name="title_app">Pokemones</string>
+    <string name="message_save_data">Guardar</string>
+    <string name="footer_text">©2023 Satoshi Tajiri</string>
+    <string name="experience_text">Experiencia: </string>
+    <string name="weight_text">Peso: </string>
+    <string name="height_text">Altura: </string>
+    <string name="pillow_text">#</string>
+    <string name="meters_text"> m</string>
+    <string name="kilograms_text"> k</string>
+    <string name="message_language">Idioma</string>
+    <string name="successful_save">Guardado exitosamente</string>
+    <string name="fail_save">Fallo al guardar</string>
+</resources>

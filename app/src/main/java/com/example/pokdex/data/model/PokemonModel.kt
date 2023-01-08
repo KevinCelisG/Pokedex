@@ -3,7 +3,7 @@ package com.example.pokdex.data.model
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class Pokemon(
+data class PokemonModel(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("weight") val weight: Int,
