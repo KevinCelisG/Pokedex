@@ -19,3 +19,7 @@ Proyecto estructura con base en Clean architecture y MVVM y construido con:
 - Retrofit
 - Firebase
 - XML 
+
+Para efectos de la entrevista, se presenta el archivo con los Responses y el archivo con los Mockups. Todos ellos se podrán encontrar con los nombres de:
+- response_mOeBBv5bFs21PIWWI7gL.txt
+- mockups.pdf
