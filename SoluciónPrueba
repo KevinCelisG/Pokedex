@@ -1,0 +1,44 @@
+Pokédex
+
+Pasos realizados para el desarrollo de la prueba:
+
+  1. En un principio comence a leer el enunciado, analizar lo que se pedia y comenzar con el desarrollo de unos wireframes.
+  
+  2. Diseños que estuve modificando por algun tiempo, hasta definir uno en concreto para modelarlo en Figma.
+  
+  3. Posteriormente defini las tecnologias que usaria para el desarrollo y la estructura que iba a tener el mismo. 
+  Al final me incline por: 
+    - Clean architecture
+    - MVVM
+    - Kotlin
+    - Dagger Hilt
+    - Coroutines
+    - Retrofit
+    - Firebase
+    - XML 
+    - Room
+  
+  4. Ya en el desarrollo. Comence implementando la Inyección de dependencias usando Dagger Hilt. Cree una @HiltAndroidApp 
+  para activar y comenzar con la generación de codigo. Por otro lado, tambien implemente un @HiltViewModel, un @AndroidEntryPoint 
+  y varias @Inject para poder realizar la Inyección de dependencias. Despues de ello, cree el paquete "di" el cual provee instancias para: 
+    - Firebase
+    - Retrofit
+    - Room
+  
+  5. Despues de ello comence a consumir la API usando el PokemonApiClient y los data class: PokemonModel y PokemonResponse. Para despues, empezar a 
+  "pintar" los datos obtenidos por medio de la API.
+  
+  6. A partir del anterior paso, comence a crear la base de datos con Room. En donde por medio de PokemonDao, PokemonDatabase y la entidad 
+  PokemonEntity pude crear y leer datos de la base de datos con Room para almacenar los datos obtenidos de la API para cuando el dispositivo no 
+  tenga acceso a internet. 
+  
+  7. Posteriormente y con la utilización de Firestore de Firebase comence a guardar la información de las responses en documentos y colecciones. 
+  Para despues poder guardarlas en un archivo plano de la carpeta "Documentos". La estructura usada en Firestore fue la siguiente:
+    - Responses. 
+      - Colección de documentos en donde se guardaran las responses de una sesión.
+        - Colección de documentos en donde se guardaran cada una de las responses de Retrofit.
+        
+  8. Despues de ello, cree un SplashActivity en donde se cargan los pokemones para despues "pintarlos" en el MainActivity.
+ 
+La comunicación que se da en la Clean architecture es la siguiente:
+  view -> viewmodel -> domain -> repository -> database - service -> network  
