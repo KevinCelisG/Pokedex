@@ -1,7 +1,6 @@
 package com.example.pokdex.data.network
 
 import com.example.pokdex.core.Constants
-import com.example.pokdex.core.Utils
 import com.example.pokdex.data.model.PokemonModel
 import com.example.pokdex.data.model.PokemonResponse
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +14,11 @@ class PokemonService @Inject constructor(
     private val pokemonFirebaseClient: PokemonFirebaseClient
 ) {
 
+    /**
+     * Get a pokemonsResponse using a pokemonApiClient
+     * @param query = Query with a data of a endpoints of the API that have data of the pokemons
+     * @return pokemonResponse = Object with a data of pokemons
+     */
     suspend fun getPokemonsResponse(query: String): PokemonResponse? {
         return withContext(Dispatchers.IO) {
             try {
@@ -31,7 +35,12 @@ class PokemonService @Inject constructor(
         }
     }
 
-    suspend fun getPokemons(listPokemonsResponse: List<com.example.pokdex.data.model.Result>?): List<PokemonModel>? {
+    /**
+     * Get a pokemons using a pokemonApiClient
+     * @param listPokemonsResponse = ListPokemonsResponse with a data of a endpoints of the API that have data of the pokemons
+     * @return listPokemons = List with a data of pokemons
+     */
+    suspend fun getPokemons(listPokemonsResponse: List<com.example.pokdex.data.model.Result>?): List<PokemonModel> {
         return withContext(Dispatchers.IO) {
             val listPokemonModels = ArrayList<PokemonModel>()
             for (i in listPokemonsResponse!!) {

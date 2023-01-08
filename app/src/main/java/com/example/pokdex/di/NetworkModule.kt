@@ -2,7 +2,6 @@ package com.example.pokdex.di
 
 import com.example.pokdex.core.Constants
 import com.example.pokdex.data.network.PokemonApiClient
-import com.example.pokdex.ui.viewmodel.PokemonViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,13 +14,21 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    // Provide just one instance of retrofit
+    /**
+     * Provide a unique instance of Retrofit at the project
+     * @return Retrofit = Instance of Retrofit
+     */
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit = Retrofit.Builder().baseUrl(Constants.ROOT_PATH)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    /**
+     * Provide a unique instance of PokemonApiClient at the project
+     * @param retrofit = Instance of Retrofit
+     * @return PokemonApiClient = Instance of PokemonApiClient
+     */
     @Singleton
     @Provides
     fun providePokemonApiClient(retrofit: Retrofit): PokemonApiClient =

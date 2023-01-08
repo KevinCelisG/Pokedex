@@ -1,19 +1,18 @@
 package com.example.pokdex.ui.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CountDownTimer
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
-import com.example.pokdex.R
 import com.example.pokdex.core.Constants
 import com.example.pokdex.databinding.ActivitySplashBinding
 import com.example.pokdex.domain.model.Pokemon
 import com.example.pokdex.ui.viewmodel.PokemonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
@@ -23,6 +22,9 @@ class SplashActivity : AppCompatActivity() {
     private var nextPage: String? = ""
     private var isOnline = false
 
+    /**
+     * Get a pokemons and manage the observes of pokemonViewModel
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,28 +33,29 @@ class SplashActivity : AppCompatActivity() {
 
         pokemonVewModel.getPokemonsResponse(Constants.INIT_PAGE_PATH)
 
-        pokemonVewModel.isLoading.observe(this, Observer {
+        pokemonVewModel.isLoading.observe(this) {
             binding.progressCircularSplash.isVisible = it
-        })
+        }
 
-        pokemonVewModel.listPokemons.observe(this, Observer {
+        pokemonVewModel.listPokemons.observe(this) {
             listPokemons.clear()
             listPokemons.addAll(it)
-            println("Cantidad de pokemones total: ${listPokemons.size}")
-            println("Cantidad de pokemones} llegando: ${it.size}")
             goToHome()
-        })
+        }
 
-        pokemonVewModel.listPokemonsResponse.observe(this, Observer {
+        pokemonVewModel.listPokemonsResponse.observe(this) {
             if (it != null) {
                 pokemonVewModel.clearAllPokemons()
                 isOnline = true
             }
             nextPage = it?.next?.replace(Constants.ROOT_PATH, "")
             pokemonVewModel.getPokemons(it)
-        })
+        }
     }
 
+    /**
+     * Start a mainActivity with a data: listPokemons, nextPage and isOnline
+     */
     private fun goToHome() {
         val intent = Intent(this@SplashActivity, MainActivity::class.java)
         intent.putExtra(Constants.LIST_POKEMON_KEY, listPokemons)

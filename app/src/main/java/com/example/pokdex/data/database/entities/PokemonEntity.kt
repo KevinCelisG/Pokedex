@@ -19,6 +19,9 @@ data class PokemonEntity(
     @ColumnInfo(name = "back_shiny") val back_shiny: String
 )
 
+/**
+ * Change a Pokemon to PokemonEntity
+ */
 fun Pokemon.toDatabase() = PokemonEntity(
     id = id,
     name = name,

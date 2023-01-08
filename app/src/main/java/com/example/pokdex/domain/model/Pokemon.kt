@@ -14,6 +14,9 @@ data class Pokemon(
     val back_shiny: String
 ) : java.io.Serializable
 
+/**
+ * Change a PokemonEntity to Pokemon
+ */
 fun PokemonEntity.toDomain() = Pokemon(
     id,
     name,

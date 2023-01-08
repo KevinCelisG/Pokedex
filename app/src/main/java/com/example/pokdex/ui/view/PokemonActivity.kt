@@ -1,14 +1,12 @@
 package com.example.pokdex.ui.view
 
-import android.graphics.Bitmap
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.pokdex.R
 import com.example.pokdex.core.Constants
-import com.example.pokdex.data.model.PokemonModel
 import com.example.pokdex.databinding.ActivityPokemonBinding
 import com.example.pokdex.domain.model.Pokemon
-import com.squareup.picasso.Picasso
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 @Suppress("DEPRECATION")
@@ -17,7 +15,9 @@ class PokemonActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPokemonBinding
     private lateinit var pokemon: Pokemon
 
-    // Initialize the binding and get and set the data about a specific Pokemon
+    /**
+     * Initialize the binding and get and set the data about a specific Pokemon
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,9 +34,10 @@ class PokemonActivity : AppCompatActivity() {
     }
 
     /**
-     *This method set a specific data about a Pokemon. The data is:
-     *Image, experience, height, weight, id and name
+     * Set a specific data about a Pokemon. The data is:
+     * Image, experience, height, weight, id and name
      */
+    @SuppressLint("SetTextI18n")
     private fun setData() {
         val listImages = mutableListOf<CarouselItem>()
         listImages.add(CarouselItem(pokemon.front_default))

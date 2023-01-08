@@ -2,13 +2,11 @@ package com.example.pokdex.ui.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Environment
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokdex.R
 import com.example.pokdex.core.Constants
@@ -20,7 +18,9 @@ import com.example.pokdex.ui.viewmodel.PokemonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.*
 import java.util.*
+import kotlin.collections.ArrayList
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +31,9 @@ class MainActivity : AppCompatActivity() {
     private var isOnline: Boolean = false
     private var nextPage: String? = ""
 
+    /**
+     * Call to other methods to initData and initRecyclerView also manage the observes of pokemonViewModel
+     */
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,41 +44,42 @@ class MainActivity : AppCompatActivity() {
         initData()
         initRecyclerView()
 
-        pokemonVewModel.listPokemonsResponse.observe(this, Observer {
-            println("Funciono chamo :,D")
-            println(it)
-            nextPage = it?.next?.replace(Constants.ROOT_PATH, "").toString()
-            pokemonVewModel.getPokemons(it)
-            println("The next path no consume api is: $nextPage")
-        })
-
-        pokemonVewModel.listPokemons.observe(this, Observer {
-            listPokemons = Utils.addDataToArrayList(listPokemons, it)
-            pokemonAdapter.notifyDataSetChanged()
-            println("Cantidad de pokemones total: ${listPokemons.size}")
-            println("Cantidad de pokemones} llegando: ${it.size}")
-        })
-
-        pokemonVewModel.isLoading.observe(this, Observer {
-            binding.progressCircular.isVisible = it
-        })
-
         binding.buttonSaveResponses.setOnClickListener {
             saveResponses()
         }
 
-        binding.nestedScrollViewList.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            val lineDead = v.getChildAt(0).measuredHeight - v.measuredHeight
-            if (scrollY == lineDead) {
+        pokemonVewModel.listPokemonsResponse.observe(this) {
+            nextPage = it?.next?.replace(Constants.ROOT_PATH, "").toString()
+            pokemonVewModel.getPokemons(it)
+        }
+
+        pokemonVewModel.listPokemons.observe(this) {
+            listPokemons = Utils.addDataToArrayList(listPokemons, it as ArrayList<Pokemon>)
+            pokemonAdapter.notifyDataSetChanged()
+        }
+
+        pokemonVewModel.isLoading.observe(this) {
+            binding.progressCircular.isVisible = it
+        }
+
+        binding.nestedScrollViewList.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+            if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                 if (nextPage != null) {
                     pokemonVewModel.getPokemonsResponse(nextPage!!)
                 } else {
-                    Toast.makeText(this, "No hay más pokemons", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.message_empty_pokemons),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         })
     }
 
+    /**
+     * Initialize the listPokemons, nextPage and isOnline and configure to buttonSaveResponse
+     */
     private fun initData() {
         listPokemons = intent.getSerializableExtra(Constants.LIST_POKEMON_KEY) as ArrayList<Pokemon>
         nextPage = intent.getStringExtra(Constants.LIST_NEXT_PATH_API_KEY)
@@ -91,7 +95,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * This method call to pokemonViewModel to save the data of responses in a file txt
+     * Call to pokemonViewModel to save the data of responses in a file txt
      */
     private fun saveResponses() {
         pokemonVewModel.saveResponses()

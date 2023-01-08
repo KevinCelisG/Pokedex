@@ -1,14 +1,9 @@
 package com.example.pokdex.core
 
-import android.content.Intent
-import android.os.Build
 import android.os.Environment
-import androidx.annotation.RequiresApi
 import com.example.pokdex.data.model.PokemonModel
 import com.example.pokdex.domain.model.Pokemon
 import java.io.*
-import java.time.Instant
-import java.util.Calendar
 
 /** This class is used in all of application, have a methods that help with a specific work in all application */
 class Utils {
@@ -43,10 +38,6 @@ class Utils {
             listPokemons: ArrayList<Pokemon>,
             listPokemonsToAdd: ArrayList<Pokemon>
         ): ArrayList<Pokemon> {
-            println("List pokemons: \n $listPokemons")
-            println("New list pokemons from internet: \n $listPokemonsToAdd")
-
-
             for (i in listPokemonsToAdd) {
                 listPokemons.add(i)
             }
