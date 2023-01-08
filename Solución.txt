@@ -6,9 +6,7 @@ Pasos realizados para el desarrollo de la prueba:
 
 1. En un principio comencé a leer el enunciado, analizar lo que se pedía y comenzar con el desarrollo de unos wireframes.
 
-
 2. Wireframes que estuve modificando por algún tiempo, hasta definir uno en concreto para modelar en Figma.
-
 
 3. Posteriormente definir las tecnologías que usaría para el desarrollo y la estructura que iba a tener el mismo. Al final me incline por: 
     - Clean architecture
@@ -28,13 +26,13 @@ Pasos realizados para el desarrollo de la prueba:
   
 5. Después de ello comencé a consumir la API usando el PokemonApiClient y los data class: PokemonModel y Pokemon Response. Para después, empezar a "pintar" los datos obtenidos por medio de la API por medio del modelo Pokemon.
 
-
 6. A partir del anterior paso, comencé a crear la base de datos con Room. En donde por medio de PokemonDao, PokemonDatabase y la entidad PokemonEntity pude crear y leer datos de la base de datos. Todo ello se realizó para almacenar los datos obtenidos de la API para cuando el dispositivo no tenga acceso a internet. 
   
 7. Posteriormente y con la utilización de Firestore de Firebase comencé a guardar la información de las responses en documentos y colecciones. Para después poder guardarlas en un archivo plano de la carpeta "Documentos". La estructura usada en Firestore fue la siguiente:
     - Responses. 
       - Colección de documentos en donde se guardaran las responses de una sesión.
         - Colección de documentos en donde se guardaran cada una de las responses de Retrofit.
+        
 8. Después de ello, cree un SplashActivity en donde se cargan los pokemones para después "pintarlos" en el MainActivity.
  
 La comunicación que se da en la Clean architecture es la siguiente:
