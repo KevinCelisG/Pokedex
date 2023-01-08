@@ -12,7 +12,8 @@
     <color name="gray_dark">#201F1F</color>
     <color name="gray_light">#C8C8C8</color>
     <color name="red">#CA4242</color>
-    <color name="red_light">#D88686</color>
+    <color name="red_light">#DF9898</color>
     <color name="green">#447a29</color>
+    <color name="green_light">#E0EBDB</color>
 
 </resources>
